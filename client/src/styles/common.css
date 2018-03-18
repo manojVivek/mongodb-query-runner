@@ -1,0 +1,18 @@
+label {
+  font-family: 'Roboto', sans-serif;
+}
+
+.button {
+  float: right;
+  line-height: 30px;
+  margin-right: 3px;
+}
+
+.button a {
+  background: #e2e2e2;
+  border-radius: 2px;
+  color: black;
+  font-family: 'Slabo 27px', serif;
+  padding: 3px 10px;
+  text-decoration: none;
+}

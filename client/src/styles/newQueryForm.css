@@ -1,0 +1,18 @@
+#editor {
+  border: 1px solid darkgray;
+  height: 250px;
+  margin: 10px;
+  position: relative;
+}
+
+.queryBox {
+  min-height: 200px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.submitButton {
+
+}
+
+

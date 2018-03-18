@@ -1,0 +1,17 @@
+.root {
+  border-bottom: 1px solid #C8C8C8;
+  font-family: 'Slabo 27px', serif;
+  line-height: 100px;
+  margin: 5px 50px;
+  padding: 5px 50px;
+}
+
+.root > * {
+  display: inline-block;
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.logo {
+  width: 50px;
+}

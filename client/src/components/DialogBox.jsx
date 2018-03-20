@@ -23,7 +23,7 @@ class DialogBox extends React.Component {
       <div
         className={classNames(
           styles.overlay,
-          {[styles.hidden]: !this.state.shown}
+          {[commonStyles.hidden]: !this.state.shown}
         )}>
         <div
           className={classNames(

@@ -2,17 +2,25 @@ import DialogBox from '../components/DialogBox';
 import NewQueryForm from './NewQueryForm';
 import React from 'react';
 
+import {showQueryForm} from '../actions';
 import classNames from 'classnames';
+import {connect} from 'react-redux';
 import commonStyles from '../styles/common.css';
 import styles from '../styles/header.css';
+
+const mapStateToProps = state => ({
+  showQueryForm: state.newQuery.get('shown'),
+});
+
+const mapDispatchToProps = dispatch => ({
+  openQueryForm: state => dispatch(showQueryForm(state)),
+});
 
 class Header extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      showQueryForm: false,
-    }
+    console.log(this.props);
   }
 
   render() {
@@ -26,13 +34,13 @@ class Header extends React.Component {
         </div>
         <div
           className={classNames(commonStyles.button)}
-          onClick={() => this.setState({showQueryForm: true})}>
+          onClick={() => this._queryFormState(true)}>
           <a href="javascript:;">New Query</a>
         </div>
         <div>
           <DialogBox
-            onClose={() => this.setState({showQueryForm: false})}
-            shown={this.state.showQueryForm}
+            onClose={() => this._queryFormState(false)}
+            shown={this.props.showQueryForm}
             title="New Query">
             <NewQueryForm/>
           </DialogBox>
@@ -41,6 +49,10 @@ class Header extends React.Component {
     );
   }
 
+  _queryFormState = shown => {
+    this.props.openQueryForm(shown);
+  }
+
 }
 
-module.exports = Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

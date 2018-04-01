@@ -1,0 +1,39 @@
+.root {
+
+}
+
+.card {
+  box-shadow: 5px 5px 40px #C8C8C8;
+  height: 200px;
+  margin: 20px;
+  padding: 20px;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+.querySection {
+  float: left;
+  width: 50%;
+}
+
+.resultSection {
+  float: left;
+  height: inherit;
+  overflow-y: scroll;
+  width: 50%;
+}
+
+.resultSection::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+.resultSection::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}

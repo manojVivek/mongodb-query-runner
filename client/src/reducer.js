@@ -28,6 +28,17 @@ function newQuery(
   return state;
 }
 
+function queriesList(state=Map({loading: true, queries: []}), action) {
+  switch(action.type) {
+    case ACTIONS.FETCHING_QUERIES:
+      return state.set('loading': true);
+    case ACTIONS.RECEIVE_QUERIES:
+      return state.set('queries', action.results).set('loading', false);
+  }
+  return state;
+}
+
 module.exports = combineReducers({
-  newQuery
+  newQuery,
+  queriesList
 });

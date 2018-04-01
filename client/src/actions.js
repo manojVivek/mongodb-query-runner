@@ -8,7 +8,7 @@ export function submitScript(code) {
   return dispatch => {
     dispatch(submittingNewQueryAction());
     fetch(
-      url('/runQuery'),
+      url('/query/new'),
       {
         body: JSON.stringify({code: Buffer.from(code).toString('base64')}),
         headers: {
@@ -20,12 +20,16 @@ export function submitScript(code) {
     .then(processResponse)
     .then(result => {
       dispatch(refreshQueriesAction(true));
+      dispatch(resetQueryDialogAction());
     })
     .catch(err => {
       console.log('Error while submitting code', err);
       window.alert('Query submission failed, please try again');
     })
-    .then(() => dispatch(submittingDoneAction()));
+    .then(() => {
+      dispatch(submittingDoneAction());
+      fetchQueries()(dispatch);
+    });
   };
 }
 
@@ -39,6 +43,34 @@ export function updateCode(code) {
 
 export function showQueryForm(state) {
   return dispatch => dispatch(queryFormStateAction(state));
+}
+
+export function fetchQueries(lastId) {
+  return dispatch => {
+    dispatch(fetchingQueriesAction());
+    fetch(url('/query/status'))
+      .then(processResponse)
+      .then(results => {
+        dispatch(recieveQueriesAction(results));
+      })
+      .catch(err => {
+        console.log('Error fetching queries list', err);
+        alert('Error while refreshing queries, please refresh the page');
+      });
+  }
+}
+
+function fetchingQueriesAction() {
+  return {
+    type: ACTIONS.FETCHING_QUERIES,
+  };
+}
+
+function recieveQueriesAction(results) {
+  return {
+    type: ACTIONS.RECEIVE_QUERIES,
+    results
+  }
 }
 
 function submittingNewQueryAction() {
@@ -70,14 +102,14 @@ function updateCodeAction(code) {
   return {
     type: ACTIONS.UPDATE_CODE,
     code,
-  }
+  };
 }
 
 function queryFormStateAction(shown) {
   return {
     type: ACTIONS.QUERY_FORM_STATE_CHANGE,
     shown,
-  }
+  };
 }
 
 function submittingDoneAction() {

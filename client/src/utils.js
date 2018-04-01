@@ -1,15 +1,14 @@
-import path from 'path';
+import _url from 'url';
 import querystring from 'querystring';
 
 export function url(urlPath, queryParams) {
   const urlPrefix = isDev()
-    ? 'http://127.0.0.1:3001/mongoDBQueryRunner/'
-    : '/mongoDBQueryRunner';
-  return path.join(
-    urlPrefix,
-    urlPath,
-    queryParams ? '?' + querystring(queryParams) : ''
-  );
+    ? 'http://127.0.0.1:3001/mongoDBQueryRunner/rest'
+    : 'http://127.0.0.1:3001/mongoDBQueryRunner/rest';
+    //TODO Fix this properly
+  return urlPrefix + urlPath;
+    //queryParams ? '?' + querystring(queryParams) : ''
+  //);
 }
 
 export function processResponse(response) {

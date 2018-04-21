@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('../config');
+const ObjectID = require('mongodb').ObjectID;
 
 const COLLECTION = config.storeConfig.scriptsCollection;
 
@@ -18,7 +19,7 @@ const resultTypes = {
 function getScripts(db, limit, lastId) {
   const query = {};
   if (lastId) {
-    query._id = {$gt: lastId};
+    query._id = {$lt: ObjectID(lastId)};
   }
   return db.collection(COLLECTION).find(query)
     .sort({_id: -1})

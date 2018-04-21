@@ -17,7 +17,7 @@ module.exports = () => {
 };
 
 function getScriptStatus(req, res, next) {
-  const {lastId} = req.params;
+  const {lastId} = req.query;
   _log('getScriptStatus', lastId, req.params);
   scriptsRepo.getScripts(req.db, RPP, lastId)
     .then((result) => res.json(result))

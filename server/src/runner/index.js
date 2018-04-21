@@ -20,7 +20,7 @@ function start(dbClient) {
   _log('Initializing');
   const db = dbClient.db(config.storeConfig.dbName);
   execute(cb => cycle(db, cb))
-    .every('10000s')
+    .every('1s')
     .start();
 }
 

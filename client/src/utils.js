@@ -1,4 +1,5 @@
 import _url from 'url';
+import path from 'path';
 import querystring from 'querystring';
 
 export function url(urlPath, queryParams) {
@@ -6,9 +7,11 @@ export function url(urlPath, queryParams) {
     ? 'http://127.0.0.1:3001/mongoDBQueryRunner/rest'
     : 'http://127.0.0.1:3001/mongoDBQueryRunner/rest';
     //TODO Fix this properly
-  return urlPrefix + urlPath;
-    //queryParams ? '?' + querystring(queryParams) : ''
-  //);
+    if (urlPath[0] != '/') {
+      urlPath = '/' + urlPath;
+    }
+  const url = path.join(urlPath, queryParams ? '?' + querystring.stringify(queryParams) : '');
+  return urlPrefix + url;
 }
 
 export function processResponse(response) {

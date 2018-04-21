@@ -48,10 +48,10 @@ export function showQueryForm(state) {
 export function fetchQueries(lastId) {
   return dispatch => {
     dispatch(fetchingQueriesAction());
-    fetch(url('/query/status'))
+    fetch(url('/query/status', lastId ? {lastId} : null))
       .then(processResponse)
       .then(results => {
-        dispatch(recieveQueriesAction(results));
+        dispatch(recieveQueriesAction(results, lastId != null));
       })
       .catch(err => {
         console.log('Error fetching queries list', err);
@@ -66,9 +66,10 @@ function fetchingQueriesAction() {
   };
 }
 
-function recieveQueriesAction(results) {
+function recieveQueriesAction(results, append) {
   return {
     type: ACTIONS.RECEIVE_QUERIES,
+    append,
     results
   }
 }

@@ -9,6 +9,14 @@
   padding: 20px;
 }
 
+.header {
+  font-family: 'Slabo 27px', serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px;
+  width: 100%;
+}
+
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -18,6 +26,12 @@ pre {
 .querySection {
   float: left;
   width: 50%;
+}
+
+.refreshButton {
+  display: inline-block;
+  float: right;
+  margin-right: 60px;
 }
 
 .resultSection {
@@ -36,4 +50,8 @@ pre {
   border-radius: 5px;
   background-color: rgba(0,0,0,.5);
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.headerTitle {
+  display: inline-block;
 }

@@ -19,11 +19,60 @@ const mapDispatchToProps = dispatch => ({
 
 class RunQueueList extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   componentDidMount() {
     this.props.fetchQueries();
+    addEventListener('scroll', event => {
+      const scrollTop = window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
+      const scrollHeight = document.documentElement.scrollHeight ||
+        document.body.scrollHeight ||
+        0;
+      const pixelsFromBottom =
+        scrollHeight - (scrollTop +  window.innerHeight);
+
+      const threshold = 1500
+
+      if (!this.state.autoLoadingInProgress && pixelsFromBottom < threshold) {
+        this.setState({autoLoadingInProgress: true});
+        this._loadMore();
+      }
+
+      if (this.state.autoLoadingInProgress && pixelsFromBottom >= threshold) {
+        this.setState({autoLoadingInProgress: false});
+      }
+    });
+  }
+
+  _loadMore = () => {
+    this.props.fetchQueries(this.props.queries[this.props.queries.length - 1]._id);
   }
 
   render() {
+    return (
+      <div>
+        <div className={classNames(styles.header)}>
+          <span className={classNames(styles.headerTitle)}>Results</span>
+          <div
+            className={classNames(commonStyles.button, styles.refreshButton)}
+            onClick={() => this._refreshList()}>
+            <a href="javascript:;">&#10227;</a>
+          </div>
+        </div>
+        {this._renderList()}
+      </div>
+    );
+  }
+
+  _refreshList = () => this.props.fetchQueries();
+
+  _renderList = () => {
     if (this.props.loading) {
       return <LoadingIndicator />;
     }
@@ -36,12 +85,15 @@ class RunQueueList extends React.Component {
 
   _renderQuery = query => {
     return (
-      <div className={classNames(styles.card)}>
+      <div className={classNames(styles.card)} key={query._id}>
         <div className={classNames(styles.querySection)}><pre>{query.code}</pre></div>
         <div className={classNames(styles.resultSection)}><pre>{query.status === 'COMPLETED'? query.result.content : query.status }</pre></div>
+        <div> className={classNames(styles.timeAgo)}>{this._getTimeAgo(query.createTs)} ago</div>
       </div>
     )
   }
+
+
 
 }
 

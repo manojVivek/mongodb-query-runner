@@ -33,7 +33,11 @@ function queriesList(state=Map({loading: true, queries: []}), action) {
     case ACTIONS.FETCHING_QUERIES:
       return state.set('loading': true);
     case ACTIONS.RECEIVE_QUERIES:
-      return state.set('queries', action.results).set('loading', false);
+      let queries = action.results
+      if (action.append) {
+        queries = state.get('queries').concat(action.results);
+      }
+      return state.set('queries', queries).set('loading', false);
   }
   return state;
 }

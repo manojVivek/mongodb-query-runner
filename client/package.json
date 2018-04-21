@@ -4,7 +4,7 @@
   "description": "A querying interface for long running queries with queuing capability.",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.js",
+    "dev": "webpack-dev-server --config webpack-dev.config.js",
     "release": "webpack --config webpack.config.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +28,7 @@
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",
     "promise": "^8.0.1",
+    "querystring": "^0.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",

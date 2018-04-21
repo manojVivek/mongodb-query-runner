@@ -17,6 +17,10 @@
   width: 100%;
 }
 
+.headerTitle {
+  display: inline-block;
+}
+
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -25,7 +29,7 @@ pre {
 
 .querySection {
   float: left;
-  width: 50%;
+  width: 40%;
 }
 
 .refreshButton {
@@ -52,6 +56,9 @@ pre {
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
-.headerTitle {
-  display: inline-block;
+.timeSection {
+  float: left;
+  font-size: 12px;
+  height: inherit;
+  width: 10%;
 }

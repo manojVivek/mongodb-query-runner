@@ -8,7 +8,7 @@ import React from 'react';
 
 let middlewares = [thunk];
 
-if (__DEV__) {
+if (true) {
   const {logger} = require('redux-logger');
   middlewares.push(logger);
 }

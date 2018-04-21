@@ -62,7 +62,7 @@ class RunQueueList extends React.Component {
           <div
             className={classNames(commonStyles.button, styles.refreshButton)}
             onClick={() => this._refreshList()}>
-            <a href="javascript:;">&#10227;</a>
+            <a href="javascript:;" title="Refresh Results">&#10227;</a>
           </div>
         </div>
         {this._renderList()}
@@ -88,12 +88,30 @@ class RunQueueList extends React.Component {
       <div className={classNames(styles.card)} key={query._id}>
         <div className={classNames(styles.querySection)}><pre>{query.code}</pre></div>
         <div className={classNames(styles.resultSection)}><pre>{query.status === 'COMPLETED'? query.result.content : query.status }</pre></div>
-        <div> className={classNames(styles.timeAgo)}>{this._getTimeAgo(query.createTs)} ago</div>
+        <div className={classNames(styles.timeSection)}>{this._getTimeAgo(query.createTs)} ago</div>
       </div>
     )
   }
 
-
+  _getTimeAgo = createDate => {
+    const ago = ((new Date()).getTime() - new Date(createDate).getTime()) / 1000;
+    if (ago < 10) {
+      return 'moments';
+    }
+    if (ago < 60) {
+      return 'less than a minute';
+    }
+    if (ago < 120) {
+      return 'a minute';
+    }
+    if (ago < 3600 * 2) {
+      return `${Math.round(ago / 60)} minutes`;
+    }
+    if (ago < (3600 * 24 * 2)) {
+      return `${Math.round(ago / 3600)} hours`;
+    }
+    return `${Math.round(ago / (3600 * 24))} days`;
+  }
 
 }
 
